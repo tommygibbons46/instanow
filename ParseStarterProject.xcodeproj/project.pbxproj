@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B6EE4901AD488A10076B6B5 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6EE48F1AD488A10076B6B5 /* CameraVC.swift */; };
+		6B6EE4921AD489780076B6B5 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6EE4911AD489780076B6B5 /* SearchVC.swift */; };
+		6B6EE4961AD49CBB0076B6B5 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6EE4951AD49CBB0076B6B5 /* ProfileVC.swift */; };
 		6BE3BA4D1AD379CB00D5997D /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3BA4C1AD379CB00D5997D /* FeedVC.swift */; };
 		6BE3BA4F1AD37A3D00D5997D /* PhotoCommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3BA4E1AD37A3D00D5997D /* PhotoCommentsVC.swift */; };
 		6BE3BA511AD37A6D00D5997D /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE3BA501AD37A6D00D5997D /* FeedCell.swift */; };
@@ -29,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B6EE48F1AD488A10076B6B5 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		6B6EE4911AD489780076B6B5 /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		6B6EE4951AD49CBB0076B6B5 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../ProfileVC.swift; sourceTree = "<group>"; };
 		6BE3BA4C1AD379CB00D5997D /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		6BE3BA4E1AD37A3D00D5997D /* PhotoCommentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCommentsVC.swift; sourceTree = "<group>"; };
 		6BE3BA501AD37A6D00D5997D /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
@@ -97,6 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				81BA814E1A49DA1800E65899 /* Main.storyboard */,
+				6B6EE4951AD49CBB0076B6B5 /* ProfileVC.swift */,
+				6B6EE4911AD489780076B6B5 /* SearchVC.swift */,
+				6B6EE48F1AD488A10076B6B5 /* CameraVC.swift */,
 				6BE3BA501AD37A6D00D5997D /* FeedCell.swift */,
 				6BE3BA521AD37A7E00D5997D /* CommentCell.swift */,
 				6BE3BA4C1AD379CB00D5997D /* FeedVC.swift */,
@@ -229,9 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B6EE4961AD49CBB0076B6B5 /* ProfileVC.swift in Sources */,
 				6BE3BA4D1AD379CB00D5997D /* FeedVC.swift in Sources */,
 				6BE3BA511AD37A6D00D5997D /* FeedCell.swift in Sources */,
 				6BE3BA4F1AD37A3D00D5997D /* PhotoCommentsVC.swift in Sources */,
+				6B6EE4921AD489780076B6B5 /* SearchVC.swift in Sources */,
+				6B6EE4901AD488A10076B6B5 /* CameraVC.swift in Sources */,
 				9EABCF051AD447D60023596E /* LogInViewController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
