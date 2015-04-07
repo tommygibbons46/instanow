@@ -1,5 +1,5 @@
 //
-//  profileVC.swift
+//  ProfileVC.swift
 //  ParseStarterProject
 //
 //  Created by Antonio Perez on 4/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class profileVC: UIViewController {
+class ProfileVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

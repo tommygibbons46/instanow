@@ -369,7 +369,8 @@
                                                             <exclude reference="tao-i5-FFd"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="widthClass=compact">
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="35" width="304" height="50"/>
                                                         <mask key="constraints">
                                                             <include reference="tao-i5-FFd"/>
                                                         </mask>
