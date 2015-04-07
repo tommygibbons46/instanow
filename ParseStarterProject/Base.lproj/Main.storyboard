@@ -281,7 +281,7 @@
         <!--profile-->
         <scene sceneID="VoD-jJ-FwK">
             <objects>
-                <viewController id="RRd-zM-wPn" customClass="ProfileVC" customModule="ParseStarterProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RRd-zM-wPn" customClass="UserProfileVC" customModule="ParseStarterProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Tj-ix-OMO"/>
                         <viewControllerLayoutGuide type="bottom" id="Mew-IX-Gk8"/>
