@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dla-93-Bb8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -31,7 +31,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ctm-uN-njQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <variation key="widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="0.0" y="66" width="320" height="315.5"/>
+                                                        <rect key="frame" x="0.0" y="66" width="320" height="315"/>
                                                     </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="friends name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xk7-eQ-weE">
@@ -212,6 +212,7 @@
                                             <outlet property="feedImage" destination="ctm-uN-njQ" id="sXS-zL-Myd"/>
                                             <outlet property="friendsNameLabel" destination="Xk7-eQ-weE" id="9yz-oN-YqC"/>
                                             <outlet property="numberOfLikesLabel" destination="wc4-Rd-FAP" id="jnC-GM-SaO"/>
+                                            <segue destination="Dla-93-Bb8" kind="presentation" identifier="LogInSegue" id="Jow-u2-NYx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -254,6 +255,9 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="feed" id="aeq-dM-cSf"/>
+                    <connections>
+                        <outlet property="tableView" destination="6de-OR-hzy" id="fCS-NX-R3k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -555,7 +559,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUp:" destination="Dla-93-Bb8" eventType="touchUpInside" id="7tB-lb-Pyi"/>
+                                    <action selector="signUp:" destination="Dla-93-Bb8" eventType="touchUpInside" id="eF5-4x-PMI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCN-w8-sX4">
@@ -568,7 +572,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signIn:" destination="Dla-93-Bb8" eventType="touchUpInside" id="yhg-Ot-nFl"/>
+                                    <action selector="signIn:" destination="Dla-93-Bb8" eventType="touchUpInside" id="03d-Cc-WmE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -595,7 +599,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXN-HN-MAM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2220" y="172"/>
+            <point key="canvasLocation" x="1954.5" y="384"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mc3-64-cip">
