@@ -7,10 +7,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-//        if PFUser.currentUser() == nil
-//        {
-//            performSegueWithIdentifier("LogInSegue", sender: self)
-//        }
+        print(PFUser.currentUser())
 
         let query = PFQuery(className: "_User")
 //        query.whereKey("username", equalTo: "hotshot190@aol.com")
@@ -19,12 +16,22 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             if returnedError == nil
             {
                 self.usersArray = returnedObjects as [PFUser]
+                print(PFUser.currentUser())
                 self.tableView.reloadData()
             }
             else
             {
                 println("there was an error")
             }
+        }
+    }
+
+    override func viewDidAppear(animated: Bool)
+    {
+        if PFUser.currentUser() == nil
+        {
+            println("something")
+            self.performSegueWithIdentifier("SuperSegue", sender: self)
         }
     }
 
