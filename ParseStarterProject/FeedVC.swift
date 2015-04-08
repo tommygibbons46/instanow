@@ -5,7 +5,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 
 {
-
+    var usersArray: [PFObject] = []
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -15,6 +15,11 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         if PFUser.currentUser() == nil
         {
             performSegueWithIdentifier("LoginSegue", sender: self)
+        }
+        let query = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: "tgibbons@princeton.edu")
+        query.findObjectsInBackgroundWithBlock { (returnedObjects, returnedError) -> Void in
+            println(self.usersArray = returnedObjects as [PFObject])
         }
 
     }
