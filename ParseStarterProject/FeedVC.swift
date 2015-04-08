@@ -1,19 +1,9 @@
 import UIKit
 import Parse
 class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
-
-
-
-
 {
-    @IBOutlet weak var tableViewTest: UITableView!
-
-    var usersArray: [PFObject] = []
-
-//    var theUser = PFUser()
-
     @IBOutlet weak var tableView: UITableView!
-    
+    var usersArray: [PFUser] = []
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -23,51 +13,31 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 //        }
 
         let query = PFQuery(className: "_User")
-
-
 //        query.whereKey("username", equalTo: "hotshot190@aol.com")
-
-        query.findObjectsInBackgroundWithBlock { (returnedObjects, returnedError) -> Void in
+        query.findObjectsInBackgroundWithBlock
+        { (returnedObjects, returnedError) -> Void in
             if returnedError == nil
             {
-                println("NO ERRORS")
-
-                self.usersArray = returnedObjects as [PFObject]
-
-//                self.usersArray = returnedObjects as [PFUser]
-
-//                var foundUser = self.usersArray[0]
-
-                for foundUser in self.usersArray
-                {
-                    println(foundUser)
-                }
-
-//                theUser = foundUser as PFUser
-
-                self.tableViewTest.reloadData()
-
-
+                self.usersArray = returnedObjects as [PFUser]
+                self.tableView.reloadData()
             }
             else
             {
                 println("there was an error")
             }
         }
-
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as FeedCell
         var userToRender = self.usersArray[indexPath.row]
-        cell.textLabel?.text = userToRender.description
-        println(userToRender.description)
-        println("pubes")
+        cell.friendsNameLabel.text = userToRender.username
+        cell.imageView?.image = UIImage(named: "mert")
         return cell
     }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return self.usersArray.count
     }
 }
