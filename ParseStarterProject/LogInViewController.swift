@@ -1,197 +1,194 @@
+
+
+//////////////////////////////////////////////////////// TOMMY CODE FROM YOUTUBE VIDEO ////////////////////////////
+
 import UIKit
-class LogInViewController: UIViewController, UITextFieldDelegate
+import Parse
+import ParseUI
+class LogInParse: UIViewController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate
 {
-    @IBOutlet weak var emailAddress: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var logInViewController: PFLogInViewController! = PFLogInViewController()
+    var signUpViewController: PFSignUpViewController! = PFSignUpViewController()
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        activityIndicator.hidden = true
-        activityIndicator.hidesWhenStopped = true
-        password.secureTextEntry = true
-        password.delegate = self
-        emailAddress.delegate = self
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    override func viewDidAppear(animated: Bool)
     {
-        self.view.endEditing(true)
-        return false
-    }
+        super.viewDidAppear(animated)
+        println(PFUser.currentUser())
+        if (PFUser.currentUser() == nil)
+        {
+            PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.DismissButton
 
-    @IBAction func signUp(sender: UIButton)
-    {
-        let user = PFUser()
-        user.username = emailAddress.text
-        user.password = password.text
-        user.email = emailAddress.text
-
-        user.signUpInBackgroundWithBlock { (returnedResult, returnedError) -> Void in
-            if returnedError == nil
-            {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            else
-            {
-                self.showAlert("There was an error with your sign up", error: returnedError)
-            }
+            var logInLogoTitle = UILabel()
+            logInLogoTitle.text = "Log In"
+            self.logInViewController.logInView.logo = logInLogoTitle
+            self.logInViewController.delegate = self
+            var signUpLogoTitle = UILabel()
+            signUpLogoTitle.text = "Sign Up"
+            self.signUpViewController.signUpView.logo = signUpLogoTitle
+            self.signUpViewController.delegate = self
+            self.logInViewController.signUpController = self.signUpViewController
         }
     }
 
-    @IBAction func signIn(sender: UIButton)
+    ////////////////////////////////////////// DELEGATE METHODS FOR LOGIN AND SIGNUP ////////////////////////////
+
+    func logInViewController(logInController: PFLogInViewController!, shouldBeginLogInWithUsername username: String!, password: String!) -> Bool
     {
-        PFUser.logInWithUsernameInBackground(emailAddress.text, password: password.text) { (returnedUser, returnedError) -> Void in
-            if returnedError == nil
-            {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            else
-            {
-                self.showAlert("There was an error with your login", error: returnedError)
-            }
+        if !username.isEmpty || !password.isEmpty
+        {
+            return true
+        } else
+        {
+            return false
         }
     }
 
-    func showAlert(message: String, error:NSError)
+    func logInViewController(logInController: PFLogInViewController!, didLogInUser user: PFUser!)
     {
-        let alert = UIAlertController(title: message, message: error.localizedDescription, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-        alert.addAction(okAction)
-        presentViewController(alert, animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func logInViewController(logInController: PFLogInViewController!, didFailToLogInWithError error: NSError!)
+    {
+        println("Failed to login")
     }
 
 
 
+    // PARSE SIGN UP
+    func signUpViewController(signUpController: PFSignUpViewController!, didSignUpUser user: PFUser!)
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        println(PFUser.currentUser())
+    }
+
+    func signUpViewController(signUpController: PFSignUpViewController!, didFailToSignUpWithError error: NSError!)
+    {
+        println("Failed to sign up")
+    }
+
+    func signUpViewControllerDidCancelSignUp(signUpController: PFSignUpViewController!)
+    {
+        println("User dismissed sign up")
+    }
 
 
+    // ACTIONS
+    @IBAction func simpleAction(sender: AnyObject)
+    {
+        self.presentViewController(self.logInViewController, animated: true, completion: nil)
+    }
+
+    @IBAction func logOut(sender: AnyObject)
+    {
+        PFUser.logOut()
+        println(PFUser.currentUser())
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ////////////////////////////////////////// DELEGATE METHODS ENDED /////////////////////////////////////
     
-
-
-
-    // TOMMY OLD CODE
-
-//    //connect to storyboard and name as indicated
-//    @IBAction func signMeUp(sender: AnyObject)
-//    {
-//        if password.text != "" && emailAddress.text != "" {
-//            processSignUp()
-//        } else {
-//            // Empty, Notify user
-//            self.emailAddress.placeholder = "Required"
-//            self.password.placeholder = "Required"
-//
-//        }
-//        resignFirstResponder()
-//    }
-//
-//
-//
-//    func processSignIn ()
-//
-//    {
-//        activityIndicator.hidden = false
-//        activityIndicator.startAnimating()
-//
-//        var userEmailAddress = emailAddress.text
-//        userEmailAddress = userEmailAddress.lowercaseString
-//
-//        var userPassword = password.text
-//
-//        PFUser.logInWithUsernameInBackground(userEmailAddress, password: userPassword) { (user: PFUser!, error: NSError!) -> Void in
-//            if user != nil {
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    println("success 2")
-//                    self.performSegueWithIdentifier("signInToNavigation", sender: self)
-//
-//
-//                }
-//            } else {
-//                self.activityIndicator.stopAnimating()
-//
-//                //                if let message: AnyObject = error!.userInfo!["error"] {
-//                //                    self.message.text = "\(message)"
-//                //                }
-//            }
-//        }
-//    }
-//    func processSignUp ()
-//    {
-//        var userEmailAddress = emailAddress.text
-//        var userPassword = password.text
-//
-//        //ensure username is lowercase
-//        userEmailAddress = userEmailAddress.lowercaseString
-//
-//        //start activity indicator
-//        activityIndicator.hidden = false
-//        activityIndicator.startAnimating()
-//
-//        //Create user
-//
-//        var user = PFUser()
-//        user.username = userEmailAddress
-//        user.password = userPassword
-//        user.email = userEmailAddress
-//
-//        user.signUpInBackgroundWithBlock { (succeeded: Bool! , error: NSError!) -> Void in
-//            if error == nil {
-//                dispatch_async(dispatch_get_main_queue()){
-//                    //make sure to properly name the segue identifier on storyboard
-//                    println("success")
-//                    self.performSegueWithIdentifier("signInToNavigation", sender: self)
-//
-//                }
-//            } else {
-//                self.activityIndicator.stopAnimating()
-//                self.activityIndicator.hidden = true
-//
-////                if let message: AnyObject = error!.userInfo!["error"] {
-////                self.message.text = "\(message)"
-////                }
-//            }
-//        }
-//    }
-//
-//    @IBAction func signMeIn(sender: AnyObject)
-//    {
-//        if password.text != "" && emailAddress.text != "" {
-//            processSignIn()
-//        } else {
-//            // Empty, Notify user
-//            self.emailAddress.placeholder = "Required"
-//            self.password.placeholder = "Required"
-//        }
-//
-//        resignFirstResponder()
-//        
-//    }
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////// OLD WORKING CODE FROM RICHES VIDEO //////////////////////////////////////////
+//
+//import UIKit
+//class LogInViewController: UIViewController, UITextFieldDelegate
+//{
+//    @IBOutlet weak var emailAddress: UITextField!
+//    @IBOutlet weak var password: UITextField!
+//    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+//    override func viewDidLoad()
+//    {
+//        super.viewDidLoad()
+//        activityIndicator.hidden = true
+//        activityIndicator.hidesWhenStopped = true
+//        password.secureTextEntry = true
+//        password.delegate = self
+//        emailAddress.delegate = self
+//    }
+//
+//    func textFieldShouldReturn(textField: UITextField) -> Bool
+//    {
+//        self.view.endEditing(true)
+//        return false
+//    }
+//
+//    @IBAction func signUp(sender: UIButton)
+//    {
+//        let user = PFUser()
+//        user.username = emailAddress.text
+//        user.password = password.text
+//        user.email = emailAddress.text
+//
+//        user.signUpInBackgroundWithBlock { (returnedResult, returnedError) -> Void in
+//            if returnedError == nil
+//            {
+//                self.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//            else
+//            {
+//                self.showAlert("There was an error with your sign up", error: returnedError)
+//            }
+//        }
+//    }
+//
+//    @IBAction func signIn(sender: UIButton)
+//    {
+//        PFUser.logInWithUsernameInBackground(emailAddress.text, password: password.text) { (returnedUser, returnedError) -> Void in
+//            if returnedError == nil
+//            {
+//                self.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//            else
+//            {
+//                self.showAlert("There was an error with your login", error: returnedError)
+//            }
+//        }
+//    }
+//
+//    func showAlert(message: String, error:NSError)
+//    {
+//        let alert = UIAlertController(title: message, message: error.localizedDescription, preferredStyle: .Alert)
+//        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+//        alert.addAction(okAction)
+//        presentViewController(alert, animated: true, completion: nil)
+//    }
+//}
+
+
+
+
