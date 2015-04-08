@@ -1,12 +1,10 @@
 import UIKit
 
-class PhotoCommentsVC: UIViewController {
-
+class PhotoCommentsVC: UIViewController
+{
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-
     }
 
 

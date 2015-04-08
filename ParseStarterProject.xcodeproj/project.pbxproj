@@ -106,12 +106,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6B96D44E1AD5C70D00671EC6 /* commentedOutCode */ = {
+		6B96D44E1AD5C70D00671EC6 /* codeNotBeingUsed */ = {
 			isa = PBXGroup;
 			children = (
 				9E6FA6891AD509980066DA70 /* OldLogInParse.swift */,
+				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 			);
-			name = commentedOutCode;
+			name = codeNotBeingUsed;
 			path = ParseStarterProject;
 			sourceTree = "<group>";
 		};
@@ -124,6 +125,17 @@
 			name = customClasses;
 			sourceTree = "<group>";
 		};
+		6BD574E51AD5D25F00844D3C /* TabBarVCs */ = {
+			isa = PBXGroup;
+			children = (
+				6BE3BA4C1AD379CB00D5997D /* FeedVC.swift */,
+				6B6EE4911AD489780076B6B5 /* SearchVC.swift */,
+				6B6EE48F1AD488A10076B6B5 /* CameraVC.swift */,
+				6B6EE4991AD4A2590076B6B5 /* UserProfileVC.swift */,
+			);
+			name = TabBarVCs;
+			sourceTree = "<group>";
+		};
 		81BA813C1A49DA1800E65899 = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +143,7 @@
 				81BA816A1A49DB5600E65899 /* Frameworks */,
 				81BA81461A49DA1800E65899 /* Products */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
-				6B96D44E1AD5C70D00671EC6 /* commentedOutCode */,
+				6B96D44E1AD5C70D00671EC6 /* codeNotBeingUsed */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,12 +160,8 @@
 			children = (
 				81BA814E1A49DA1800E65899 /* Main.storyboard */,
 				9EABCF041AD447D60023596E /* LogInParse.swift */,
-				81BA814C1A49DA1800E65899 /* ViewController.swift */,
-				6BE3BA4C1AD379CB00D5997D /* FeedVC.swift */,
-				6B6EE4911AD489780076B6B5 /* SearchVC.swift */,
-				6B6EE48F1AD488A10076B6B5 /* CameraVC.swift */,
-				6B6EE4991AD4A2590076B6B5 /* UserProfileVC.swift */,
 				6BE3BA4E1AD37A3D00D5997D /* PhotoCommentsVC.swift */,
+				6BD574E51AD5D25F00844D3C /* TabBarVCs */,
 				6B96D44F1AD5C74300671EC6 /* customClasses */,
 				81BA81511A49DA1800E65899 /* Images.xcassets */,
 				81BA81481A49DA1800E65899 /* Supporting Files */,
