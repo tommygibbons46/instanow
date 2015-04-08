@@ -4,33 +4,71 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 
 
+
 {
+    @IBOutlet weak var tableViewTest: UITableView!
+
     var usersArray: [PFObject] = []
+
+//    var theUser = PFUser()
 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        if PFUser.currentUser() == nil
-        {
-            performSegueWithIdentifier("LoginSegue", sender: self)
-        }
+//        if PFUser.currentUser() == nil
+//        {
+//            performSegueWithIdentifier("LogInSegue", sender: self)
+//        }
+
         let query = PFQuery(className: "_User")
-        query.whereKey("username", equalTo: "tgibbons@princeton.edu")
+
+
+//        query.whereKey("username", equalTo: "hotshot190@aol.com")
+
         query.findObjectsInBackgroundWithBlock { (returnedObjects, returnedError) -> Void in
-            println(self.usersArray = returnedObjects as [PFObject])
+            if returnedError == nil
+            {
+                println("NO ERRORS")
+
+                self.usersArray = returnedObjects as [PFObject]
+
+//                self.usersArray = returnedObjects as [PFUser]
+
+//                var foundUser = self.usersArray[0]
+
+                for foundUser in self.usersArray
+                {
+                    println(foundUser)
+                }
+
+//                theUser = foundUser as PFUser
+
+                self.tableViewTest.reloadData()
+
+
+            }
+            else
+            {
+                println("there was an error")
+            }
         }
 
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as UITableViewCell
+        var userToRender = self.usersArray[indexPath.row]
+        cell.textLabel?.text = userToRender.description
+        println(userToRender.description)
+        println("pubes")
         return cell
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return self.usersArray.count
     }
 }
 
