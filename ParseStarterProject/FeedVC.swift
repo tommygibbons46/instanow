@@ -7,7 +7,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        print(PFUser.currentUser())
 
         let query = PFQuery(className: "_User")
 //        query.whereKey("username", equalTo: "hotshot190@aol.com")
@@ -16,7 +15,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             if returnedError == nil
             {
                 self.usersArray = returnedObjects as [PFUser]
-                print(PFUser.currentUser())
                 self.tableView.reloadData()
             }
             else
@@ -30,8 +28,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         if PFUser.currentUser() == nil
         {
-            println("something")
-            self.performSegueWithIdentifier("SuperSegue", sender: self)
+            self.performSegueWithIdentifier("LogInSegue", sender: self)
         }
     }
 
@@ -40,7 +37,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as FeedCell
         var userToRender = self.usersArray[indexPath.row]
         cell.friendsNameLabel.text = userToRender.username
-        cell.imageView?.image = UIImage(named: "mert")
+        cell.feedImage.image = UIImage(named: "mertrix")
         return cell
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
