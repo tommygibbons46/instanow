@@ -16,7 +16,8 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         self.refreshControl = UIRefreshControl()
         self.refreshControl.backgroundColor = UIColor.greenColor()
         self.refreshControl.tintColor = UIColor.whiteColor()
-        self.refreshControl.addTarget(self, action: "refresh", forControlEvents:UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents:UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
     }
     func refresh(sender: AnyObject)
     {
@@ -45,6 +46,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 self.photosArray = returnedPhotos as [Photo]
                 self.tableView.reloadData()
                 println(self.photosArray)
+                self.refreshControl.endRefreshing()
             }
             else
             {
