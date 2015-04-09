@@ -1,15 +1,18 @@
 import UIKit
-class SearchVC: UIViewController
+class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var showCommentLabel: UILabel!
 
+    @IBOutlet weak var tableView: UITableView!
+
     var kommentsArray: [Komment] = []
+
+    var kommentsIndexedToUserArray: [Komment] = []
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        println(User.currentUser())
     }
 
 
@@ -18,7 +21,7 @@ class SearchVC: UIViewController
         let komment = Komment()
         komment.commentBody = self.textField.text
 
-        komment.commenter = User.currentUser() as User
+        komment.commenter = User.currentUser()
 
         komment.saveInBackgroundWithBlock
         {
@@ -44,6 +47,7 @@ class SearchVC: UIViewController
             if returnedError == nil
             {
                 self.kommentsArray = returnedObjects as [Komment]
+                println(self.kommentsArray)
                 println("retrieved")
             }
             else
@@ -56,6 +60,11 @@ class SearchVC: UIViewController
 
     @IBAction func onSaveToUserButtonTapped(sender: UIButton)
     {
+//        var cUser = User.currentUser()
+//        var komments = cUser.komments
+//        // WHY I CANT PRINT THIS? THE ENTIRE THING STOPS
+//        println(komments)
+
         var relation = User.currentUser().relationForKey("komments")
         relation.addObject(self.kommentsArray.last)
 
@@ -75,6 +84,11 @@ class SearchVC: UIViewController
 
     @IBAction func onShowCommentButtonTapped(sender: UIButton)
     {
+//        // HOW COME THIS ONLY PRINTS ONE??
+//        println("cracker")
+//        println(User.currentUser().komments)
+//        println("cheese")
+
         var relation = User.currentUser().relationForKey("komments")
         relation.query().findObjectsInBackgroundWithBlock
         {
@@ -85,11 +99,32 @@ class SearchVC: UIViewController
             }
             else
             {
+//                // HOW COME THIS ONLY PRINTS ONE TOO??
+//                println(User.currentUser().komments)
+                self.kommentsIndexedToUserArray = objects as [Komment]
                 var theKomment = objects.last as Komment
                 self.showCommentLabel.text = theKomment.commentBody
+
+                self.tableView.reloadData()
             }
         }
     }
+
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as UITableViewCell
+        var kommentToRender = self.kommentsIndexedToUserArray[indexPath.row]
+        cell.textLabel?.text = kommentToRender.commentBody
+        return cell
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return self.kommentsIndexedToUserArray.count
+    }
+
+
+    
 
 
 }
