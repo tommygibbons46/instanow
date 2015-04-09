@@ -5,8 +5,6 @@ class FeedCell: UITableViewCell
     // if you name feedImage as imageView it will crash
 
     @IBOutlet weak var feedImage: UIImageView!
-
-
     @IBOutlet weak var friendsNameLabel: UILabel!
     @IBOutlet weak var numberOfLikesLabel: UILabel!
 
