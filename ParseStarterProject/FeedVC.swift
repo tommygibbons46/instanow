@@ -3,18 +3,24 @@ import Parse
 class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
-    var usersArray: [PFUser] = []
+    var usersArray: [User] = []
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.loadUsers()
+    }
 
-        let query = PFQuery(className: "_User")
-//        query.whereKey("username", equalTo: "hotshot190@aol.com")
+
+    func loadUsers()
+    {
+        let query = User.query()
+        //        query.whereKey("username", equalTo: "hotshot190@aol.com")
         query.findObjectsInBackgroundWithBlock
         { (returnedObjects, returnedError) -> Void in
             if returnedError == nil
             {
-                self.usersArray = returnedObjects as [PFUser]
+                self.usersArray = returnedObjects as [User]
                 self.tableView.reloadData()
             }
             else
@@ -30,6 +36,8 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
             self.performSegueWithIdentifier("LogInSegue", sender: self)
         }
+
+
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
