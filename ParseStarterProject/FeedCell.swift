@@ -8,6 +8,7 @@ class FeedCell: UITableViewCell
     @IBOutlet weak var friendsNameLabel: UILabel!
     @IBOutlet weak var numberOfLikesLabel: UILabel!
 
+    @IBOutlet weak var commentButton: UIButton!
 
     override func awakeFromNib()
     {
@@ -26,11 +27,6 @@ class FeedCell: UITableViewCell
 
 
     @IBAction func onLikeButtonPressed(sender: UIButton)
-    {
-
-    }
-
-    @IBAction func onCommentButtonPressed(sender: UIButton)
     {
 
     }

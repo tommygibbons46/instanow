@@ -18,7 +18,7 @@ class Photo : PFObject, PFSubclassing
     }
 
     @NSManaged var photographer : User
-    @NSManaged var komments : Comment
+    @NSManaged var comments : Comment
     @NSManaged var photographerName : String
     @NSManaged var actualImage : PFFile
 

@@ -2,17 +2,12 @@ import UIKit
 import Parse
 class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-
-    var imageToRender = UIImage()
-
     @IBOutlet weak var tableView: UITableView!
-    var usersArray: [User] = []
     var photosArray: [Photo] = []
     var refreshControl = UIRefreshControl()
     override func viewDidLoad()
     {
         super.viewDidLoad()
-      //  self.loadUsers() //// no longer need this function
         self.refreshControl = UIRefreshControl()
         self.refreshControl.backgroundColor = UIColor.greenColor()
         self.refreshControl.tintColor = UIColor.whiteColor()
@@ -32,7 +27,8 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
         self.loadPhotos() ///check for method that will only look to load if changes have occured
     }
 
@@ -45,7 +41,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             {
                 self.photosArray = returnedPhotos as! [Photo]
                 self.tableView.reloadData()
-                println(self.photosArray)
+//                println(self.photosArray)
                 self.refreshControl.endRefreshing()
             }
             else
@@ -55,36 +51,11 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
 
-
-    func loadUsers()
-    {
-        let query = User.query()
-        query!.findObjectsInBackgroundWithBlock
-        { (returnedObjects, returnedError) -> Void in
-            if returnedError == nil
-            {
-                self.usersArray = returnedObjects as! [User]
-                self.tableView.reloadData()
-            }
-            else
-            {
-                println("there was an error")
-            }
-        }
-
-        println(self.usersArray)
-    }
-
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as! FeedCell
         var photoToRender = self.photosArray[indexPath.row]
-//        var userToRender = self.usersArray[indexPath.row]
-//        cell.friendsNameLabel.text = userToRender.username
         cell.friendsNameLabel.text = photoToRender.photographerName
-
-
-//        let userImageFile = userToRender.profilePic
         let userImageFile = photoToRender.actualImage
         userImageFile.getDataInBackgroundWithBlock
         {
@@ -93,16 +64,43 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             {
                 var imageToRender = UIImage(data:imageData!)!
                 cell.feedImage.image = imageToRender
-
             }
         }
+        cell.commentButton.tag = indexPath.row
         return cell
     }
 
-        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return self.photosArray.count
     }
+
+
+    @IBAction func onCommentButtonTapped(sender: UIButton)
+    {
+        performSegueWithIdentifier("toPhotoComments", sender: sender)
+    }
+
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+
+        if segue.identifier == "toPhotoComments"
+        {
+            let buttonSender = sender as! UIButton
+            let selectedCellIndex = sender?.tag
+            let photoCommentsVC = segue.destinationViewController as! PhotoCommentsVC
+            photoCommentsVC.selectedPhoto = self.photosArray[selectedCellIndex!]
+        }
+        else
+        {
+
+        }
+    }
+
+
+
+
 }
 
 

@@ -130,6 +130,7 @@
 			children = (
 				9E6FA6891AD509980066DA70 /* OldLogInParse.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
+				6B38C2731AD62B2D0008CAD7 /* pess.swift */,
 			);
 			name = codeNotBeingUsed;
 			path = ParseStarterProject;
@@ -149,7 +150,6 @@
 			children = (
 				6BE3BA4C1AD379CB00D5997D /* FeedVC.swift */,
 				6B6EE4911AD489780076B6B5 /* SearchVC.swift */,
-				6B38C2731AD62B2D0008CAD7 /* pess.swift */,
 				6B6EE48F1AD488A10076B6B5 /* CameraVC.swift */,
 				6B6EE4991AD4A2590076B6B5 /* UserProfileVC.swift */,
 			);

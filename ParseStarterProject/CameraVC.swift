@@ -4,15 +4,6 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        //      let image = UIImage(named: "mert")
-        //        let imageData = UIImagePNGRepresentation(image)
-        //        let imageFile = PFFile(name:"image.png", data:imageData)
-        //
-        //        var userPhoto = PFObject(className:"UserPhoto")
-        //        userPhoto["imageName"] = "mert!"
-        //        userPhoto["imageFile"] = imageFile
-        //        userPhoto.saveInBackground()
     }
 
     override func viewDidAppear(animated: Bool)

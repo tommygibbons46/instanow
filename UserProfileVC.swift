@@ -4,10 +4,11 @@ class UserProfileVC: UIViewController
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var personNameLabel: UILabel!
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        self.personNameLabel.text = User.currentUser()?.username
         let userImageFile = User.currentUser()!.profilePic
         userImageFile.getDataInBackgroundWithBlock
         {
