@@ -38,6 +38,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
 
 
+
     func showTakePhotoView()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
@@ -82,6 +83,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 
         theImage.actualImage = PFFile(name: "ourImage", data: imageData)
         theImage.photographer = User.currentUser()
+        theImage.photographerName = User.currentUser().username
 
         User.currentUser().profilePic = theImage.actualImage
 

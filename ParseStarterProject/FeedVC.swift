@@ -7,12 +7,12 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
     @IBOutlet weak var tableView: UITableView!
     var usersArray: [User] = []
+    var photosArray: [Photo] = []
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.loadUsers()
+      //  self.loadUsers() //// no longer need this function
 
-//        var pullDownToRefresh = UIRefreshControl()
     }
 
     override func viewDidAppear(animated: Bool)
@@ -22,6 +22,30 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             self.performSegueWithIdentifier("LogInSegue", sender: self)
         }
     }
+
+    override func viewWillAppear(animated: Bool) {
+        self.loadPhotos() ///check for method that will only look to load if changes have occured
+    }
+
+    func loadPhotos()
+    {
+        let photoQuery = Photo.query()
+//        photoQuery.orderByAscending("createdAt")
+        photoQuery.orderByDescending("createdAt")
+        photoQuery.findObjectsInBackgroundWithBlock { (returnedPhotos, returnedError) -> Void in
+            if returnedError == nil
+            {
+                self.photosArray = returnedPhotos as [Photo]
+                self.tableView.reloadData()
+                println(self.photosArray)
+            }
+            else
+            {
+                println("there was an error while retrieving photos")
+            }
+        }
+    }
+
 
     func loadUsers()
     {
@@ -45,11 +69,14 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as FeedCell
-        var userToRender = self.usersArray[indexPath.row]
-        cell.friendsNameLabel.text = userToRender.username
+        var photoToRender = self.photosArray[indexPath.row]
+//        var userToRender = self.usersArray[indexPath.row]
+//        cell.friendsNameLabel.text = userToRender.username
+        cell.friendsNameLabel.text = photoToRender.photographerName
 
 
-        let userImageFile = userToRender.profilePic
+//        let userImageFile = userToRender.profilePic
+        let userImageFile = photoToRender.actualImage
         userImageFile.getDataInBackgroundWithBlock
         {
             (imageData: NSData!, error: NSError!) -> Void in
@@ -64,9 +91,10 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 //        cell.feedImage.image = self.imageToRender
         return cell
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+
+        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.usersArray.count
+        return self.photosArray.count
     }
 }
 
