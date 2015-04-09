@@ -39,11 +39,11 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func loadPhotos()
     {
         let photoQuery = Photo.query()
-        photoQuery.orderByDescending("createdAt")
-        photoQuery.findObjectsInBackgroundWithBlock { (returnedPhotos, returnedError) -> Void in
+        photoQuery!.orderByDescending("createdAt")
+        photoQuery!.findObjectsInBackgroundWithBlock { (returnedPhotos, returnedError) -> Void in
             if returnedError == nil
             {
-                self.photosArray = returnedPhotos as [Photo]
+                self.photosArray = returnedPhotos as! [Photo]
                 self.tableView.reloadData()
                 println(self.photosArray)
                 self.refreshControl.endRefreshing()
@@ -59,11 +59,11 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func loadUsers()
     {
         let query = User.query()
-        query.findObjectsInBackgroundWithBlock
+        query!.findObjectsInBackgroundWithBlock
         { (returnedObjects, returnedError) -> Void in
             if returnedError == nil
             {
-                self.usersArray = returnedObjects as [User]
+                self.usersArray = returnedObjects as! [User]
                 self.tableView.reloadData()
             }
             else
@@ -77,7 +77,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as FeedCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as! FeedCell
         var photoToRender = self.photosArray[indexPath.row]
 //        var userToRender = self.usersArray[indexPath.row]
 //        cell.friendsNameLabel.text = userToRender.username
@@ -88,10 +88,10 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let userImageFile = photoToRender.actualImage
         userImageFile.getDataInBackgroundWithBlock
         {
-            (imageData: NSData!, error: NSError!) -> Void in
+            (imageData, error) -> Void in
             if error == nil
             {
-                var imageToRender = UIImage(data:imageData)!
+                var imageToRender = UIImage(data:imageData!)!
                 cell.feedImage.image = imageToRender
 
             }

@@ -8,13 +8,13 @@ class UserProfileVC: UIViewController
     {
         super.viewDidLoad()
 
-        let userImageFile = User.currentUser().profilePic
+        let userImageFile = User.currentUser()!.profilePic
         userImageFile.getDataInBackgroundWithBlock
         {
-            (imageData: NSData!, error: NSError!) -> Void in
+            (imageData, error) -> Void in
             if error == nil
             {
-                var imageToRender = UIImage(data:imageData)!
+                var imageToRender = UIImage(data:imageData!)
                 self.profileImageView.image = imageToRender
             }
         }

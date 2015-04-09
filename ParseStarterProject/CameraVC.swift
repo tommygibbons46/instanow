@@ -73,23 +73,23 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         dismissViewControllerAnimated(true, completion: nil)
 
 
-        let theImage = Photo()
+        var theImage = Photo(className: "Photo")
 
 
-        let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageData = UIImagePNGRepresentation(image)
 
 //        let imageFile = PFFile(name:"imageName", data:imageData)
 
         theImage.actualImage = PFFile(name: "ourImage", data: imageData)
-        theImage.photographer = User.currentUser()
-        theImage.photographerName = User.currentUser().username
+        theImage.photographer = User.currentUser()!
+        theImage.photographerName = User.currentUser()!.username!
 
-        User.currentUser().profilePic = theImage.actualImage
+        User.currentUser()!.profilePic = theImage.actualImage
 
         theImage.saveInBackgroundWithBlock
             {
-                (success: Bool, error: NSError!) -> Void in
+                (success, error) -> Void in
                 if (success)
                 {
                     println("saved img")

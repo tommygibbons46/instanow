@@ -29,7 +29,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate
             }
             else
             {
-                self.showAlert("There was an error with your sign up", error: returnedError)
+                self.showAlert("There was an error with your sign up", error: returnedError!)
             }
         }
     }
@@ -44,7 +44,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate
             }
             else
             {
-                self.showAlert("There was an error with your login", error: returnedError)
+                self.showAlert("There was an error with your login", error: returnedError!)
             }
         }
     }
