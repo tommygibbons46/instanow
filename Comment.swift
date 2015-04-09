@@ -1,5 +1,5 @@
 import Foundation
-class Comment : PFObject, PFSubclassing
+class Komment : PFObject, PFSubclassing
 {
     override class func initialize()
     {
@@ -12,7 +12,7 @@ class Comment : PFObject, PFSubclassing
 
     class func parseClassName() -> String!
     {
-        return "Comment"
+        return "Komment"
     }
 
 

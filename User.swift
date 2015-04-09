@@ -17,30 +17,25 @@ class User : PFUser, PFSubclassing
 //        }
 //    }
 
+    
     @NSManaged var firstName: String
     @NSManaged var lastName: String
 
+    @NSManaged var komments: Komment
 
-
+    // xcode says i cant overwrite this ones since they come by default in pfuser i think
 //    @NSManaged var email: String
 //    @NSManaged var username: String
 //    @NSManaged var password: String
 
 
-
     // DONT INCLUDE THIS WHEN SUBCLASSING PFUSER
-
-//    override class func parseClassName() -> String!
+//    override class func parseClassName() -> String! // i had to change "class" from "static" according to xcode
 //    {
 //        return "User"
 //    }
 
 
-    //    // THIS DOENST WORK, MAKES ME CHANGE STATIC FOR CLASS
-    //    static func parseClassName() -> String!
-    //    {
-    //        return "Armor"
-    //    }
     
     
     

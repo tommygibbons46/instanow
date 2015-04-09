@@ -114,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				6B678D1A1AD5F09300A75F3D /* User.swift */,
+				6B678D1F1AD5F6A000A75F3D /* Comment.swift */,
 			);
 			name = parseSubclasses;
 			path = ..;
@@ -152,12 +153,11 @@
 		81BA813C1A49DA1800E65899 = {
 			isa = PBXGroup;
 			children = (
-				6B678D1F1AD5F6A000A75F3D /* Comment.swift */,
 				81BA81471A49DA1800E65899 /* ParseStarterProject */,
 				81BA816A1A49DB5600E65899 /* Frameworks */,
 				81BA81461A49DA1800E65899 /* Products */,
-				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				6B96D44E1AD5C70D00671EC6 /* codeNotBeingUsed */,
+				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 			);
 			sourceTree = "<group>";
 		};

@@ -4,18 +4,15 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
     var usersArray: [User] = []
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.loadUsers()
     }
 
-
     func loadUsers()
     {
         let query = User.query()
-        //        query.whereKey("username", equalTo: "hotshot190@aol.com")
         query.findObjectsInBackgroundWithBlock
         { (returnedObjects, returnedError) -> Void in
             if returnedError == nil
@@ -36,8 +33,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
             self.performSegueWithIdentifier("LogInSegue", sender: self)
         }
-
-
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
