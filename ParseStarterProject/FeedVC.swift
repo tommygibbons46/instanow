@@ -2,12 +2,25 @@ import UIKit
 import Parse
 class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
+
+    var imageToRender = UIImage()
+
     @IBOutlet weak var tableView: UITableView!
     var usersArray: [User] = []
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.loadUsers()
+
+//        var pullDownToRefresh = UIRefreshControl()
+    }
+
+    override func viewDidAppear(animated: Bool)
+    {
+        if PFUser.currentUser() == nil
+        {
+            self.performSegueWithIdentifier("LogInSegue", sender: self)
+        }
     }
 
     func loadUsers()
@@ -25,14 +38,8 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 println("there was an error")
             }
         }
-    }
 
-    override func viewDidAppear(animated: Bool)
-    {
-        if PFUser.currentUser() == nil
-        {
-            self.performSegueWithIdentifier("LogInSegue", sender: self)
-        }
+        println(self.usersArray)
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -40,7 +47,21 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as FeedCell
         var userToRender = self.usersArray[indexPath.row]
         cell.friendsNameLabel.text = userToRender.username
-        cell.feedImage.image = UIImage(named: "mertrix")
+
+
+        let userImageFile = userToRender.profilePic
+        userImageFile.getDataInBackgroundWithBlock
+        {
+            (imageData: NSData!, error: NSError!) -> Void in
+            if error == nil
+            {
+                var imageToRender = UIImage(data:imageData)!
+                cell.feedImage.image = imageToRender
+
+            }
+        }
+
+//        cell.feedImage.image = self.imageToRender
         return cell
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
