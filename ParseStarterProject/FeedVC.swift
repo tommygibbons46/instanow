@@ -41,7 +41,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             {
                 self.photosArray = returnedPhotos as! [Photo]
                 self.tableView.reloadData()
-//                println(self.photosArray)
+               // println(self.photosArray)
                 self.refreshControl.endRefreshing()
             }
             else
