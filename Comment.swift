@@ -1,5 +1,5 @@
 import Foundation
-class Komment : PFObject, PFSubclassing
+class Comment : PFObject, PFSubclassing
 {
     override class func initialize()
     {
@@ -12,18 +12,14 @@ class Komment : PFObject, PFSubclassing
 
     class func parseClassName() -> String!
     {
-        return "Komment"
+        return "Comment"
     }
 
 
     @NSManaged var commentBody: String
     @NSManaged var commenter : User
+    @NSManaged var photo : Photo
 
-
-    // XCODE SAYS CHANGE STATIC TO CLASS
-//    static func parseClassName() -> String! {
-//        return "Armor"
-//    }
 
 
 

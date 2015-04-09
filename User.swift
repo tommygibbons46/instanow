@@ -21,7 +21,11 @@ class User : PFUser, PFSubclassing
     @NSManaged var firstName: String
     @NSManaged var lastName: String
 
-    @NSManaged var komments: Komment
+    @NSManaged var komments: Comment
+    @NSManaged var photos: Photo
+
+    @NSManaged var profilePic: PFFile
+    
 
     // xcode says i cant overwrite this ones since they come by default in pfuser i think
 //    @NSManaged var email: String

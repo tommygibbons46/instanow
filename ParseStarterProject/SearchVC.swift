@@ -3,12 +3,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var showCommentLabel: UILabel!
-
     @IBOutlet weak var tableView: UITableView!
 
-    var kommentsArray: [Komment] = []
-
-    var kommentsIndexedToUserArray: [Komment] = []
+    var kommentsArray: [Comment] = []
+    var kommentsIndexedToUserArray: [Comment] = []
 
     override func viewDidLoad()
     {
@@ -18,7 +16,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     @IBAction func onCommentItButtonPressed(sender: UIButton)
     {
-        let komment = Komment()
+        let komment = Comment()
         komment.commentBody = self.textField.text
 
         komment.commenter = User.currentUser()
@@ -40,14 +38,14 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     func onGetCommentButtonTapped()
     {
-        let query = Komment.query()
+        let query = Comment.query()
         query.whereKey("commenter", equalTo: User.currentUser())
         query.findObjectsInBackgroundWithBlock
         {
             (returnedObjects, returnedError) -> Void in
             if returnedError == nil
             {
-                self.kommentsArray = returnedObjects as [Komment]
+                self.kommentsArray = returnedObjects as [Comment]
                 println(self.kommentsArray)
                 println("retrieved")
                 self.onSaveToUserButtonTapped()
@@ -104,8 +102,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             {
 //                // HOW COME THIS ONLY PRINTS ONE TOO??
 //                println(User.currentUser().komments)
-                self.kommentsIndexedToUserArray = objects as [Komment]
-                var theKomment = objects.last as Komment
+                self.kommentsIndexedToUserArray = objects as [Comment]
+                var theKomment = objects.last as Comment
                 self.showCommentLabel.text = theKomment.commentBody
 
                 self.tableView.reloadData()

@@ -1,17 +1,13 @@
 import UIKit
 class LogInViewController: UIViewController, UITextFieldDelegate
 {
+    @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailAddress: UITextField!
     @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        activityIndicator.hidden = true
-        activityIndicator.hidesWhenStopped = true
         password.secureTextEntry = true
-        password.delegate = self
-        emailAddress.delegate = self
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool
@@ -23,7 +19,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate
     @IBAction func signUp(sender: UIButton)
     {
         let user = User()
-        user.username = emailAddress.text
+        user.username = usernameTextField.text
         user.password = password.text
         user.email = emailAddress.text
         user.signUpInBackgroundWithBlock { (returnedResult, returnedError) -> Void in

@@ -7,7 +7,17 @@ class UserProfileVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.profileImageView.image = UIImage(named: "mertrix")
+
+        let userImageFile = User.currentUser().profilePic
+        userImageFile.getDataInBackgroundWithBlock
+        {
+            (imageData: NSData!, error: NSError!) -> Void in
+            if error == nil
+            {
+                var imageToRender = UIImage(data:imageData)!
+                self.profileImageView.image = imageToRender
+            }
+        }
     }
 
     @IBAction func onFollowButtonPressed(sender: UIButton)
