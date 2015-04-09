@@ -29,6 +29,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if (success)
             {
                 println("KOMMENT saved comment")
+                self.onGetCommentButtonTapped()
             }
             else
             {
@@ -37,7 +38,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
 
-    @IBAction func onGetCommentButtonTapped(sender: UIButton)
+    func onGetCommentButtonTapped()
     {
         let query = Komment.query()
         query.whereKey("commenter", equalTo: User.currentUser())
@@ -49,6 +50,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.kommentsArray = returnedObjects as [Komment]
                 println(self.kommentsArray)
                 println("retrieved")
+                self.onSaveToUserButtonTapped()
             }
             else
             {
@@ -58,7 +60,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
 
 
-    @IBAction func onSaveToUserButtonTapped(sender: UIButton)
+    func onSaveToUserButtonTapped()
     {
 //        var cUser = User.currentUser()
 //        var komments = cUser.komments
@@ -74,6 +76,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if (success)
             {
                 println("USER saved comment")
+                self.onShowCommentButtonTapped()
             }
             else
             {
@@ -82,7 +85,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
 
-    @IBAction func onShowCommentButtonTapped(sender: UIButton)
+    func onShowCommentButtonTapped()
     {
 //        // HOW COME THIS ONLY PRINTS ONE??
 //        println("cracker")
