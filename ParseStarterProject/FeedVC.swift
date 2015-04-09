@@ -8,11 +8,19 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var tableView: UITableView!
     var usersArray: [User] = []
     var photosArray: [Photo] = []
+    var refreshControl = UIRefreshControl()
     override func viewDidLoad()
     {
         super.viewDidLoad()
       //  self.loadUsers() //// no longer need this function
-
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.backgroundColor = UIColor.greenColor()
+        self.refreshControl.tintColor = UIColor.whiteColor()
+        self.refreshControl.addTarget(self, action: "refresh", forControlEvents:UIControlEvents.ValueChanged)
+    }
+    func refresh(sender: AnyObject)
+    {
+        loadPhotos()
     }
 
     override func viewDidAppear(animated: Bool)
@@ -30,7 +38,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func loadPhotos()
     {
         let photoQuery = Photo.query()
-//        photoQuery.orderByAscending("createdAt")
         photoQuery.orderByDescending("createdAt")
         photoQuery.findObjectsInBackgroundWithBlock { (returnedPhotos, returnedError) -> Void in
             if returnedError == nil
@@ -87,8 +94,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
             }
         }
-
-//        cell.feedImage.image = self.imageToRender
         return cell
     }
 
