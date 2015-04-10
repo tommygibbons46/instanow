@@ -17,9 +17,13 @@ class User : PFUser, PFSubclassing
 //        }
 //    }
 
-    @NSManaged var comments: Comment
-    @NSManaged var photos: Photo
+//    @NSManaged var comments: Comment
+//    @NSManaged var photos: Photo
 
+    @NSManaged var friends: User
+
+
+    
     @NSManaged var profilePic: PFFile
     
 

@@ -64,7 +64,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     {
                         self.usersArray = returnedObjects as! [User]
                         self.tableView.reloadData()
-                        println(self.usersArray)
+//                        println(self.usersArray)
                     }
                     else
                     {
@@ -80,7 +80,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     {
                         self.usersArray = returnedObjects as! [User]
                         self.tableView.reloadData()
-                        println(self.usersArray)
+//                        println(self.usersArray)
                     }
                     else
                     {
@@ -90,6 +90,54 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
     }
 
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
+
+        println(indexPath.row)
+        println(self.usersArray.count)
+
+        var userAtRow = self.usersArray[indexPath.row] as User
+
+        var currentUser = User.currentUser()
+        var relation = currentUser?.relationForKey("friends")
+        relation?.addObject(userAtRow)
+
+        currentUser?.saveInBackgroundWithBlock
+        { (success, error) -> Void in
+            if success
+            {
+                println("relation saved")
+                println(currentUser?.friends)
+
+                relation?.query()?.findObjectsInBackgroundWithBlock
+                { (allRelations, error) -> Void in
+                    if error == nil
+                    {
+                        println("ALL RELATIONS BELOW")
+                        println(allRelations)
+                    }
+                    else
+                    {
+                        println("relations NOT found")
+                    }
+
+                }
+            }
+            else
+            {
+                println("relation NOT saved")
+            }
+        }
+    }
+
+
+//    func printAllRelations()
+//    {
+//
+//
+//    }
 
 
 

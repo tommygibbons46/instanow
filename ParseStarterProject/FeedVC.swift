@@ -3,9 +3,12 @@ import Parse
 class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
+
     var photosArray: [Photo] = []
 
     var likesArray: [Like] = []
+
+    var friendsArray: [User] = []
 
 
     var refreshControl = UIRefreshControl()
@@ -22,7 +25,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     func refresh(sender: AnyObject)
     {
-        loadPhotos()
+        loadFriendsPhotos()
     }
 
     override func viewDidAppear(animated: Bool)
@@ -35,27 +38,71 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
     override func viewWillAppear(animated: Bool)
     {
-        self.loadPhotos() ///check for method that will only look to load if changes have occured
+        self.loadFriendsPhotos()
     }
 
-    func loadPhotos()
+
+//    func loadPhotos()
+//    {
+//        let photoQuery = Photo.query()
+//        photoQuery!.orderByDescending("createdAt")
+//        photoQuery!.findObjectsInBackgroundWithBlock { (returnedPhotos, returnedError) -> Void in
+//            if returnedError == nil
+//            {
+//                self.photosArray = returnedPhotos as! [Photo]
+//                self.tableView.reloadData()
+//               // println(self.photosArray)
+//                self.refreshControl.endRefreshing()
+//            }
+//            else
+//            {
+//                println("there was an error while retrieving photos")
+//            }
+//        }
+//    }
+
+
+    func loadFriendsPhotos()
     {
+        var currentUser = User.currentUser()
+        var relation = currentUser?.relationForKey("friends")
+        relation?.query()?.findObjectsInBackgroundWithBlock
+        { (allRelations, error) -> Void in
+        if error == nil
+            {
+                println("ALL RELATIONS BELOW")
+                println(allRelations)
+                self.friendsArray = allRelations as! [User]
+            }
+        else
+            {
+                println("relations NOT found")
+            }
+        }
+
+
         let photoQuery = Photo.query()
+        photoQuery?.whereKey("photographer", containedIn: self.friendsArray)
         photoQuery!.orderByDescending("createdAt")
-        photoQuery!.findObjectsInBackgroundWithBlock { (returnedPhotos, returnedError) -> Void in
-            if returnedError == nil
+        photoQuery!.findObjectsInBackgroundWithBlock
+        { (returnedPhotos, returnedError) -> Void in
+        if returnedError == nil
             {
                 self.photosArray = returnedPhotos as! [Photo]
                 self.tableView.reloadData()
-               // println(self.photosArray)
+                // println(self.photosArray)
                 self.refreshControl.endRefreshing()
             }
-            else
+        else
             {
                 println("there was an error while retrieving photos")
             }
         }
     }
+
+
+
+
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
