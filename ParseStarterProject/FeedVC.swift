@@ -3,25 +3,20 @@ import Parse
 class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
-
     var photosArray: [Photo] = []
-
     var likesArray: [Like] = []
-
     var friendsArray: [User] = []
-
-
     var refreshControl = UIRefreshControl()
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.backgroundColor = UIColor.greenColor()
+        self.refreshControl.backgroundColor = UIColor.grayColor()
         self.refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents:UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
-
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.loadFriendsPhotos()
     }
     func refresh(sender: AnyObject)
     {
@@ -70,39 +65,37 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         { (allRelations, error) -> Void in
         if error == nil
             {
-                println("ALL RELATIONS BELOW")
-//                println(allRelations)
                 self.friendsArray = allRelations as! [User]
+
+                ///////////////////////////////////////////////////////////////////////
+
+                let photoQuery = Photo.query()
+                photoQuery?.whereKey("photographer", containedIn: self.friendsArray)
+                photoQuery!.orderByDescending("createdAt")
+                photoQuery!.findObjectsInBackgroundWithBlock
+                    { (returnedPhotos, returnedError) -> Void in
+                        if returnedError == nil
+                        {
+                            self.photosArray = returnedPhotos as! [Photo]
+                            self.tableView.reloadData()
+                            self.refreshControl.endRefreshing()
+                        }
+                        else
+                        {
+                            println("there was an error while retrieving photos")
+                        }
+                }
+
+                ///////////////////////////////////////////////////////////////////////
+
+
             }
         else
             {
                 println("relations NOT found")
             }
         }
-
-
-        let photoQuery = Photo.query()
-        photoQuery?.whereKey("photographer", containedIn: self.friendsArray)
-        photoQuery!.orderByDescending("createdAt")
-        photoQuery!.findObjectsInBackgroundWithBlock
-        { (returnedPhotos, returnedError) -> Void in
-        if returnedError == nil
-            {
-                self.photosArray = returnedPhotos as! [Photo]
-                self.tableView.reloadData()
-                // println(self.photosArray)
-                self.refreshControl.endRefreshing()
-            }
-        else
-            {
-                println("there was an error while retrieving photos")
-            }
-        }
     }
-
-   
-
-
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -118,13 +111,12 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             {
                 var imageToRender = UIImage(data:imageData!)!
                 cell.feedImage.image = imageToRender
+
             }
         }
         let numberOfLikes = photoToRender.numberOfLikes
         let likesNumber = numberOfLikes.integerValue
-
         let numberOfLikesString = String(likesNumber)
-
         cell.numberOfLikesLabel.text = numberOfLikesString
         cell.likeButton.tag = indexPath.row
         cell.commentButton.tag = indexPath.row
@@ -135,7 +127,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         return self.photosArray.count
     }
-
 
 
     @IBAction func onLikeButtonTapped(sender: UIButton)
@@ -164,16 +155,16 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         like.liker = User.currentUser()!
         like.photo = photoToLike
         like.saveInBackgroundWithBlock
+        {
+            (success, error) -> Void in
+            if (success)
             {
-                (success, error) -> Void in
-                if (success)
-                {
-                    println("SAVED like")
-                }
-                else
-                {
-                    println("LIKE not saved")
-                }
+                println("SAVED like")
+            }
+            else
+            {
+                println("LIKE not saved")
+            }
         }
     }
 
@@ -192,10 +183,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             let selectedCellIndex = sender?.tag
             let photoCommentsVC = segue.destinationViewController as! PhotoCommentsVC
             photoCommentsVC.selectedPhoto = self.photosArray[selectedCellIndex!]
-        }
-        else
-        {
-
         }
     }
 

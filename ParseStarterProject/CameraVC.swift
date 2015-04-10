@@ -62,21 +62,17 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         dismissViewControllerAnimated(true, completion: nil)
-
-
         var theImage = Photo(className: "Photo")
-
-
-
-
         var photoACL = PFACL(user: User.currentUser()!)
         photoACL.setPublicReadAccess(true)
         photoACL.setPublicWriteAccess(true)
         theImage.ACL = photoACL
 
-
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let imageData = UIImagePNGRepresentation(image)
+
+        let imageData = UIImageJPEGRepresentation(image, 0.5)
+
+//        let imageData = UIImagePNGRepresentation(image)
 
         theImage.actualImage = PFFile(name: "ourImage", data: imageData)
         theImage.photographer = User.currentUser()!

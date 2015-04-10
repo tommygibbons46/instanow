@@ -358,7 +358,7 @@
                                     <constraint firstAttribute="height" constant="21" id="fTH-Ex-M2G"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -405,7 +405,7 @@
                                     <constraint firstAttribute="width" constant="136" id="iiH-dA-vIi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -427,7 +427,7 @@
                                     <constraint firstAttribute="height" constant="21" id="NGR-Sj-MDo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -532,20 +532,20 @@
                                 <exclude reference="Q8L-g1-Yy9"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="8Pu-fY-uAU"/>
-                                <exclude reference="xbl-7v-KU4"/>
-                                <exclude reference="CX5-xZ-Muh"/>
-                                <exclude reference="TTN-i1-dV8"/>
                                 <exclude reference="8rn-LJ-8dh"/>
                                 <exclude reference="Ilc-W3-u1S"/>
+                                <exclude reference="KKf-vf-hsd"/>
+                                <exclude reference="iTw-hN-bhT"/>
+                                <exclude reference="CX5-xZ-Muh"/>
+                                <exclude reference="TTN-i1-dV8"/>
+                                <exclude reference="Daf-iG-7vs"/>
+                                <exclude reference="hME-dW-0Hz"/>
+                                <exclude reference="jGa-kg-Orr"/>
+                                <exclude reference="8Pu-fY-uAU"/>
+                                <exclude reference="xbl-7v-KU4"/>
                                 <exclude reference="Mo0-eq-asV"/>
                                 <exclude reference="gze-B9-3dA"/>
                                 <exclude reference="ueO-A1-82e"/>
-                                <exclude reference="KKf-vf-hsd"/>
-                                <exclude reference="iTw-hN-bhT"/>
-                                <exclude reference="hME-dW-0Hz"/>
-                                <exclude reference="jGa-kg-Orr"/>
-                                <exclude reference="Daf-iG-7vs"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -558,20 +558,20 @@
                                 <include reference="Q8L-g1-Yy9"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="8Pu-fY-uAU"/>
-                                <include reference="xbl-7v-KU4"/>
-                                <include reference="CX5-xZ-Muh"/>
-                                <include reference="TTN-i1-dV8"/>
                                 <include reference="8rn-LJ-8dh"/>
                                 <include reference="Ilc-W3-u1S"/>
+                                <include reference="KKf-vf-hsd"/>
+                                <include reference="iTw-hN-bhT"/>
+                                <include reference="CX5-xZ-Muh"/>
+                                <include reference="TTN-i1-dV8"/>
+                                <include reference="Daf-iG-7vs"/>
+                                <include reference="hME-dW-0Hz"/>
+                                <include reference="jGa-kg-Orr"/>
+                                <include reference="8Pu-fY-uAU"/>
+                                <include reference="xbl-7v-KU4"/>
                                 <include reference="Mo0-eq-asV"/>
                                 <include reference="gze-B9-3dA"/>
                                 <include reference="ueO-A1-82e"/>
-                                <include reference="KKf-vf-hsd"/>
-                                <include reference="iTw-hN-bhT"/>
-                                <include reference="hME-dW-0Hz"/>
-                                <include reference="jGa-kg-Orr"/>
-                                <include reference="Daf-iG-7vs"/>
                             </mask>
                         </variation>
                     </view>
@@ -580,7 +580,7 @@
                         <outlet property="collectionView" destination="Q8L-g1-Yy9" id="j3M-A0-iP3"/>
                         <outlet property="followButton" destination="sS1-6F-N4p" id="eBJ-Tt-IE8"/>
                         <outlet property="numberOfFriendsLabel" destination="9a1-Lh-iec" id="m9a-t2-hCx"/>
-                        <outlet property="numberOfLikesLabel" destination="3P9-ea-v3v" id="vdv-zb-y4I"/>
+                        <outlet property="numberOfPhotos" destination="3P9-ea-v3v" id="5Oe-j0-xs2"/>
                         <outlet property="personNameLabel" destination="2cA-m0-KVb" id="zT1-4X-Ovc"/>
                         <outlet property="profileImageView" destination="IRu-lq-LNh" id="GOh-5w-WlY"/>
                     </connections>

@@ -3,16 +3,9 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
 {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-
-
     var usersArray: [User] = []
     var isSearching : Bool = false
     var filteredUsers:[User] = []
-
-
-    var kommentsArray: [Comment] = []
-    var kommentsIndexedToUserArray: [Comment] = []
-
     override func viewDidLoad()
     {
         super.viewDidLoad()

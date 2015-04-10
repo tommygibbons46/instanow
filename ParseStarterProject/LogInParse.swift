@@ -44,8 +44,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate
                             { (allRelations, error) -> Void in
                                 if error == nil
                                 {
-                                    println("ALL RELATIONS BELOW")
+                                    println("RELATION SAVED")
                                     println(allRelations)
+
+//                                    User.currentUser()?.saveInBackgroundWithBlock
+//                                    { (success, error) -> Void in
+//                                        if success
+//                                        {
+//                                            println("user got saved after friending itself")
+//                                        }
+//                                        else
+//                                        {
+//                                            println("user NOT got saved after friending itself")
+//                                        }
+//                                    }
+
+
                                 }
                                 else
                                 {
@@ -73,7 +87,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate
 
     @IBAction func signIn(sender: UIButton)
     {
-        PFUser.logInWithUsernameInBackground(emailAddress.text, password: password.text) { (returnedUser, returnedError) -> Void in
+        PFUser.logInWithUsernameInBackground(usernameTextField.text, password: password.text)
+        { (returnedUser, returnedError) -> Void in
             if returnedError == nil
             {
                 self.dismissViewControllerAnimated(true, completion: nil)

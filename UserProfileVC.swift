@@ -8,7 +8,8 @@ class UserProfileVC: UIViewController, UICollectionViewDataSource, UICollectionV
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var personNameLabel: UILabel!
     @IBOutlet weak var numberOfFriendsLabel: UILabel!
-    @IBOutlet weak var numberOfLikesLabel: UILabel!
+    @IBOutlet weak var numberOfPhotos: UILabel!
+
 
     override func viewDidLoad()
     {
@@ -43,6 +44,8 @@ class UserProfileVC: UIViewController, UICollectionViewDataSource, UICollectionV
             if returnedError == nil
             {
                 self.photosArray = returnedPhotos as! [Photo]
+                let photoCount = self.photosArray.count as NSNumber
+                self.numberOfPhotos.text = String(format: "Photos %@", photoCount)
                 self.collectionView.reloadData()
                 println("user photos retrieved")
                 println(self.photosArray)
