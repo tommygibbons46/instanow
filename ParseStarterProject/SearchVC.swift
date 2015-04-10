@@ -17,12 +17,12 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     {
         super.viewDidLoad()
         self.searchBar.delegate = self
-        loadUsers()
     }
 
     func searchBarTextDidBeginEditing(searchBar: UISearchBar)
     {
         isSearching = true
+        loadUsers()
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar)
@@ -38,8 +38,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func searchBarSearchButtonClicked(searchBar: UISearchBar)
     {
         isSearching = false
+        self.searchBar.resignFirstResponder()
         loadUsers()
-
     }
 
 
@@ -55,19 +55,38 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func loadUsers()
     {
         let query = User.query()!
-        query.whereKey("username", containsString: searchBar.text)
-        query.findObjectsInBackgroundWithBlock
-            { (returnedObjects, returnedError) -> Void in
-                if returnedError == nil
-                {
-                    self.usersArray = returnedObjects as! [User]
-                    self.tableView.reloadData()
-                    println(self.usersArray)
-                }
-                else
-                {
-                    println("there was an error")
-                }
+        if self.searchBar.text != ""
+        {
+            query.whereKey("username", containsString: self.searchBar.text )
+            query.findObjectsInBackgroundWithBlock
+                { (returnedObjects, returnedError) -> Void in
+                    if returnedError == nil
+                    {
+                        self.usersArray = returnedObjects as! [User]
+                        self.tableView.reloadData()
+                        println(self.usersArray)
+                    }
+                    else
+                    {
+                        println("there was an error")
+                    }
+            }
+        }
+        else
+        {
+            query.findObjectsInBackgroundWithBlock
+                { (returnedObjects, returnedError) -> Void in
+                    if returnedError == nil
+                    {
+                        self.usersArray = returnedObjects as! [User]
+                        self.tableView.reloadData()
+                        println(self.usersArray)
+                    }
+                    else
+                    {
+                        println("there was an error")
+                    }
+            }
         }
     }
 

@@ -781,12 +781,6 @@
                                 <exclude reference="2IR-oF-mQe"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="EzG-gO-2T4"/>
-                                <exclude reference="Sls-os-lTg"/>
-                                <exclude reference="XIT-Eg-uZe"/>
-                                <exclude reference="kbv-Po-zzn"/>
-                                <exclude reference="nkT-CE-JHt"/>
-                                <exclude reference="yuk-7v-ttW"/>
                                 <exclude reference="M6i-xO-FK6"/>
                                 <exclude reference="RBn-XI-lbp"/>
                                 <exclude reference="as7-yp-uJH"/>
@@ -803,6 +797,12 @@
                                 <exclude reference="2pU-bx-fCb"/>
                                 <exclude reference="jEP-dj-PQy"/>
                                 <exclude reference="nFb-dm-d9c"/>
+                                <exclude reference="EzG-gO-2T4"/>
+                                <exclude reference="Sls-os-lTg"/>
+                                <exclude reference="XIT-Eg-uZe"/>
+                                <exclude reference="kbv-Po-zzn"/>
+                                <exclude reference="nkT-CE-JHt"/>
+                                <exclude reference="yuk-7v-ttW"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -812,12 +812,6 @@
                                 <include reference="2IR-oF-mQe"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="EzG-gO-2T4"/>
-                                <exclude reference="Sls-os-lTg"/>
-                                <include reference="XIT-Eg-uZe"/>
-                                <include reference="kbv-Po-zzn"/>
-                                <include reference="nkT-CE-JHt"/>
-                                <exclude reference="yuk-7v-ttW"/>
                                 <exclude reference="M6i-xO-FK6"/>
                                 <exclude reference="RBn-XI-lbp"/>
                                 <exclude reference="as7-yp-uJH"/>
@@ -834,6 +828,12 @@
                                 <include reference="2pU-bx-fCb"/>
                                 <exclude reference="jEP-dj-PQy"/>
                                 <include reference="nFb-dm-d9c"/>
+                                <exclude reference="EzG-gO-2T4"/>
+                                <exclude reference="Sls-os-lTg"/>
+                                <include reference="XIT-Eg-uZe"/>
+                                <include reference="kbv-Po-zzn"/>
+                                <include reference="nkT-CE-JHt"/>
+                                <exclude reference="yuk-7v-ttW"/>
                             </mask>
                         </variation>
                     </view>
