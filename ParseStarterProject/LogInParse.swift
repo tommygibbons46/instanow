@@ -26,6 +26,42 @@ class LogInViewController: UIViewController, UITextFieldDelegate
             if returnedError == nil
             {
                 self.dismissViewControllerAnimated(true, completion: nil)
+                println("SIGNED UP SUCCESS")
+
+                ////////////////////////////////////////////////////////////////
+
+                var relation = User.currentUser()?.relationForKey("friends")
+                relation?.addObject(User.currentUser()!)
+
+                User.currentUser()!.saveInBackgroundWithBlock
+                    { (success, error) -> Void in
+                        if success
+                        {
+                            println("relation saved")
+                            println(User.currentUser()?.friends)
+
+                            relation?.query()?.findObjectsInBackgroundWithBlock
+                            { (allRelations, error) -> Void in
+                                if error == nil
+                                {
+                                    println("ALL RELATIONS BELOW")
+                                    println(allRelations)
+                                }
+                                else
+                                {
+                                    println("relations NOT found")
+                                }
+                            }
+                        }
+                        else
+                        {
+                            println("relation NOT saved")
+                        }
+                }
+
+                ////////////////////////////////////////////////////////////////
+
+
             }
             else
             {

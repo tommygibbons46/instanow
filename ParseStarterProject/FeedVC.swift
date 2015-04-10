@@ -71,7 +71,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         if error == nil
             {
                 println("ALL RELATIONS BELOW")
-                println(allRelations)
+//                println(allRelations)
                 self.friendsArray = allRelations as! [User]
             }
         else
@@ -100,6 +100,7 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
 
+   
 
 
 
