@@ -1,131 +1,162 @@
 import UIKit
-class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource
+class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchBarDelegate
 {
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var showCommentLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-
-    var kommentsArray: [Comment] = []
-    var kommentsIndexedToUserArray: [Comment] = []
-
+    var usersArray: [User] = []
+    var isSearching : Bool = false
+    var filteredUsers:[User] = []
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.searchBar.delegate = self
+    }
+
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar)
+    {
+        isSearching = true
+        loadUsers()
+    }
+
+    func searchBarTextDidEndEditing(searchBar: UISearchBar)
+    {
+        isSearching = false
+    }
+
+    func searchBarCancelButtonClicked(searchBar: UISearchBar)
+    {
+        isSearching = false
+    }
+
+    func searchBarSearchButtonClicked(searchBar: UISearchBar)
+    {
+        isSearching = false
+        self.searchBar.resignFirstResponder()
+        loadUsers()
     }
 
 
-    @IBAction func onCommentItButtonPressed(sender: UIButton)
+    func filterContentForSearchText(searchText: String)
     {
-        let komment = Comment()
-        komment.commentBody = self.textField.text
+        self.filteredUsers = self.usersArray.filter({ (user: User) -> Bool in
+            let stringMatch = user.username?.rangeOfString(searchText)
+            return (stringMatch != nil)
+        })
 
-        komment.commenter = User.currentUser()
+    }
 
-        komment.saveInBackgroundWithBlock
+    func loadUsers()
+    {
+        let query = User.query()!
+        if self.searchBar.text != ""
         {
-            (success: Bool, error: NSError!) -> Void in
-            if (success)
-            {
-                println("KOMMENT saved comment")
-                self.onGetCommentButtonTapped()
+            query.whereKey("username", containsString: self.searchBar.text )
+            query.findObjectsInBackgroundWithBlock
+                { (returnedObjects, returnedError) -> Void in
+                    if returnedError == nil
+                    {
+                        self.usersArray = returnedObjects as! [User]
+                        self.tableView.reloadData()
+//                        println(self.usersArray)
+                    }
+                    else
+                    {
+                        println("there was an error")
+                    }
             }
-            else
-            {
-                println("KOMMENT no saved")
+        }
+        else
+        {
+            query.findObjectsInBackgroundWithBlock
+                { (returnedObjects, returnedError) -> Void in
+                    if returnedError == nil
+                    {
+                        self.usersArray = returnedObjects as! [User]
+                        self.tableView.reloadData()
+//                        println(self.usersArray)
+                    }
+                    else
+                    {
+                        println("there was an error")
+                    }
             }
         }
     }
 
-    func onGetCommentButtonTapped()
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let query = Comment.query()
-        query.whereKey("commenter", equalTo: User.currentUser())
-        query.findObjectsInBackgroundWithBlock
-        {
-            (returnedObjects, returnedError) -> Void in
-            if returnedError == nil
+        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
+
+        println(indexPath.row)
+        println(self.usersArray.count)
+
+        var userAtRow = self.usersArray[indexPath.row] as User
+
+        var currentUser = User.currentUser()
+        var relation = currentUser?.relationForKey("friends")
+        relation?.addObject(userAtRow)
+
+        currentUser?.saveInBackgroundWithBlock
+        { (success, error) -> Void in
+            if success
             {
-                self.kommentsArray = returnedObjects as [Comment]
-                println(self.kommentsArray)
-                println("retrieved")
-                self.onSaveToUserButtonTapped()
+                println("relation saved")
+                println(currentUser?.friends)
+
+                relation?.query()?.findObjectsInBackgroundWithBlock
+                { (allRelations, error) -> Void in
+                    if error == nil
+                    {
+                        println("ALL RELATIONS BELOW")
+                        println(allRelations)
+                    }
+                    else
+                    {
+                        println("relations NOT found")
+                    }
+
+                }
             }
             else
             {
-                println("there was an error")
+                println("relation NOT saved")
             }
         }
     }
 
 
-    func onSaveToUserButtonTapped()
-    {
-//        var cUser = User.currentUser()
-//        var komments = cUser.komments
-//        // WHY I CANT PRINT THIS? THE ENTIRE THING STOPS
-//        println(komments)
+//    func printAllRelations()
+//    {
+//
+//
+//    }
 
-        var relation = User.currentUser().relationForKey("komments")
-        relation.addObject(self.kommentsArray.last)
-
-        User.currentUser().saveInBackgroundWithBlock
-        {
-            (success : Bool, error : NSError!) -> Void in
-            if (success)
-            {
-                println("USER saved comment")
-                self.onShowCommentButtonTapped()
-            }
-            else
-            {
-                println("USER no saved")
-            }
-        }
-    }
-
-    func onShowCommentButtonTapped()
-    {
-//        // HOW COME THIS ONLY PRINTS ONE??
-//        println("cracker")
-//        println(User.currentUser().komments)
-//        println("cheese")
-
-        var relation = User.currentUser().relationForKey("komments")
-        relation.query().findObjectsInBackgroundWithBlock
-        {
-            (objects: [AnyObject]!, error: NSError!) -> Void in
-            if error != nil
-            {
-                println("there was an error")
-            }
-            else
-            {
-//                // HOW COME THIS ONLY PRINTS ONE TOO??
-//                println(User.currentUser().komments)
-                self.kommentsIndexedToUserArray = objects as [Comment]
-                var theKomment = objects.last as Comment
-                self.showCommentLabel.text = theKomment.commentBody
-
-                self.tableView.reloadData()
-            }
-        }
-    }
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as UITableViewCell
-        var kommentToRender = self.kommentsIndexedToUserArray[indexPath.row]
-        cell.textLabel?.text = kommentToRender.commentBody
+        let cell = tableView.dequeueReusableCellWithIdentifier("cellID") as! UITableViewCell
+        if self.isSearching
+            {
+                var userToRender = self.filteredUsers[indexPath.row]
+                cell.textLabel?.text = userToRender.username
+            }
+        else
+            {
+                var userToRender = self.usersArray[indexPath.row]
+                cell.textLabel?.text = userToRender.username
+            }
         return cell
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.kommentsIndexedToUserArray.count
+        if self.isSearching
+        {
+            return filteredUsers.count
+        }
+        return self.usersArray.count
     }
-
-
-    
 
 
 }

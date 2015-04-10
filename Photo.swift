@@ -12,15 +12,19 @@ class Photo : PFObject, PFSubclassing
         }
     }
 
-    class func parseClassName() -> String!
+    class func parseClassName() -> String
     {
         return "Photo"
     }
 
-    @NSManaged var photographer : User
-    @NSManaged var komments : Comment
-
     @NSManaged var actualImage : PFFile
+    @NSManaged var numberOfLikes : NSNumber
+
+    @NSManaged var photographer : User
+
+    @NSManaged var photographerName : String
+
+    @NSManaged var comments : Comment
 
 
 

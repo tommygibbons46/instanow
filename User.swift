@@ -2,7 +2,7 @@ import Foundation
 class User : PFUser, PFSubclassing
 {
 
-    override class func load()
+    override class func initialize()
     {
         registerSubclass()
     }
@@ -17,21 +17,15 @@ class User : PFUser, PFSubclassing
 //        }
 //    }
 
+//    @NSManaged var comments: Comment
+//    @NSManaged var photos: Photo
+
+    @NSManaged var friends: User
+
+
     
-    @NSManaged var firstName: String
-    @NSManaged var lastName: String
-
-    @NSManaged var komments: Comment
-    @NSManaged var photos: Photo
-
     @NSManaged var profilePic: PFFile
     
-
-    // xcode says i cant overwrite this ones since they come by default in pfuser i think
-//    @NSManaged var email: String
-//    @NSManaged var username: String
-//    @NSManaged var password: String
-
 
     // DONT INCLUDE THIS WHEN SUBCLASSING PFUSER
 //    override class func parseClassName() -> String! // i had to change "class" from "static" according to xcode

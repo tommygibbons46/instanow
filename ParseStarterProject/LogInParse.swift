@@ -26,10 +26,60 @@ class LogInViewController: UIViewController, UITextFieldDelegate
             if returnedError == nil
             {
                 self.dismissViewControllerAnimated(true, completion: nil)
+                println("SIGNED UP SUCCESS")
+
+                ////////////////////////////////////////////////////////////////
+
+                var relation = User.currentUser()?.relationForKey("friends")
+                relation?.addObject(User.currentUser()!)
+
+                User.currentUser()!.saveInBackgroundWithBlock
+                    { (success, error) -> Void in
+                        if success
+                        {
+                            println("relation saved")
+                            println(User.currentUser()?.friends)
+
+                            relation?.query()?.findObjectsInBackgroundWithBlock
+                            { (allRelations, error) -> Void in
+                                if error == nil
+                                {
+                                    println("RELATION SAVED")
+                                    println(allRelations)
+
+//                                    User.currentUser()?.saveInBackgroundWithBlock
+//                                    { (success, error) -> Void in
+//                                        if success
+//                                        {
+//                                            println("user got saved after friending itself")
+//                                        }
+//                                        else
+//                                        {
+//                                            println("user NOT got saved after friending itself")
+//                                        }
+//                                    }
+
+
+                                }
+                                else
+                                {
+                                    println("relations NOT found")
+                                }
+                            }
+                        }
+                        else
+                        {
+                            println("relation NOT saved")
+                        }
+                }
+
+                ////////////////////////////////////////////////////////////////
+
+
             }
             else
             {
-                self.showAlert("There was an error with your sign up", error: returnedError)
+                self.showAlert("There was an error with your sign up", error: returnedError!)
             }
         }
     }
@@ -37,14 +87,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate
 
     @IBAction func signIn(sender: UIButton)
     {
-        PFUser.logInWithUsernameInBackground(emailAddress.text, password: password.text) { (returnedUser, returnedError) -> Void in
+        PFUser.logInWithUsernameInBackground(usernameTextField.text, password: password.text)
+        { (returnedUser, returnedError) -> Void in
             if returnedError == nil
             {
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
             else
             {
-                self.showAlert("There was an error with your login", error: returnedError)
+                self.showAlert("There was an error with your login", error: returnedError!)
             }
         }
     }

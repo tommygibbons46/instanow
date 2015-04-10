@@ -4,15 +4,6 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        //      let image = UIImage(named: "mert")
-        //        let imageData = UIImagePNGRepresentation(image)
-        //        let imageFile = PFFile(name:"image.png", data:imageData)
-        //
-        //        var userPhoto = PFObject(className:"UserPhoto")
-        //        userPhoto["imageName"] = "mert!"
-        //        userPhoto["imageFile"] = imageFile
-        //        userPhoto.saveInBackground()
     }
 
     override func viewDidAppear(animated: Bool)
@@ -36,6 +27,7 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 
         self.presentViewController(alert, animated: true, completion: nil)
     }
+
 
 
     func showTakePhotoView()
@@ -70,24 +62,27 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         dismissViewControllerAnimated(true, completion: nil)
+        var theImage = Photo(className: "Photo")
+        var photoACL = PFACL(user: User.currentUser()!)
+        photoACL.setPublicReadAccess(true)
+        photoACL.setPublicWriteAccess(true)
+        theImage.ACL = photoACL
 
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
 
-        let theImage = Photo()
+        let imageData = UIImageJPEGRepresentation(image, 0.5)
 
-
-        let image = info[UIImagePickerControllerOriginalImage] as UIImage
-        let imageData = UIImagePNGRepresentation(image)
-
-//        let imageFile = PFFile(name:"imageName", data:imageData)
+//        let imageData = UIImagePNGRepresentation(image)
 
         theImage.actualImage = PFFile(name: "ourImage", data: imageData)
-        theImage.photographer = User.currentUser()
+        theImage.photographer = User.currentUser()!
+        theImage.photographerName = User.currentUser()!.username!
 
-        User.currentUser().profilePic = theImage.actualImage
+        User.currentUser()!.profilePic = theImage.actualImage
 
         theImage.saveInBackgroundWithBlock
             {
-                (success: Bool, error: NSError!) -> Void in
+                (success, error) -> Void in
                 if (success)
                 {
                     println("saved img")
