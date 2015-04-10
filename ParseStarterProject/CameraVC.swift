@@ -67,10 +67,16 @@ class CameraVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         var theImage = Photo(className: "Photo")
 
 
+
+
+        var photoACL = PFACL(user: User.currentUser()!)
+        photoACL.setPublicReadAccess(true)
+        photoACL.setPublicWriteAccess(true)
+        theImage.ACL = photoACL
+
+
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageData = UIImagePNGRepresentation(image)
-
-//        let imageFile = PFFile(name:"imageName", data:imageData)
 
         theImage.actualImage = PFFile(name: "ourImage", data: imageData)
         theImage.photographer = User.currentUser()!

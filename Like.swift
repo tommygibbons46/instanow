@@ -1,5 +1,7 @@
 import Foundation
-class Comment : PFObject, PFSubclassing
+import Parse
+
+class Like : PFObject, PFSubclassing
 {
     override class func initialize()
     {
@@ -12,17 +14,12 @@ class Comment : PFObject, PFSubclassing
 
     class func parseClassName() -> String
     {
-        return "Comment"
+        return "Like"
     }
 
 
-    @NSManaged var commentBody: String
-    
-    @NSManaged var commenter : User
+    @NSManaged var liker : User
     @NSManaged var photo : Photo
-
-
-
 
 
 }

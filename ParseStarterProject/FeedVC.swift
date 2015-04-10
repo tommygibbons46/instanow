@@ -4,6 +4,10 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
     var photosArray: [Photo] = []
+
+    var likesArray: [Like] = []
+
+
     var refreshControl = UIRefreshControl()
     override func viewDidLoad()
     {
@@ -13,6 +17,8 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         self.refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents:UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
+
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     func refresh(sender: AnyObject)
     {
@@ -66,6 +72,13 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 cell.feedImage.image = imageToRender
             }
         }
+        let numberOfLikes = photoToRender.numberOfLikes
+        let likesNumber = numberOfLikes.integerValue
+
+        let numberOfLikesString = String(likesNumber)
+
+        cell.numberOfLikesLabel.text = numberOfLikesString
+        cell.likeButton.tag = indexPath.row
         cell.commentButton.tag = indexPath.row
         return cell
     }
@@ -73,6 +86,47 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return self.photosArray.count
+    }
+
+
+
+    @IBAction func onLikeButtonTapped(sender: UIButton)
+    {
+        let selectedCellIndex = sender.tag
+        let indexPath = NSIndexPath(forRow: selectedCellIndex, inSection: 0)
+        let photoToLike = self.photosArray[selectedCellIndex]
+        let numberOfLikes = photoToLike.numberOfLikes
+        let likesNumber = numberOfLikes.integerValue + 1
+        photoToLike.numberOfLikes = likesNumber
+        photoToLike.saveInBackgroundWithBlock
+        {
+            (success, error) -> Void in
+            if (success)
+            {
+                println("saved photo")
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            }
+            else
+            {
+                println("photo not saved")
+            }
+        }
+
+        let like = Like(className: "Like")
+        like.liker = User.currentUser()!
+        like.photo = photoToLike
+        like.saveInBackgroundWithBlock
+            {
+                (success, error) -> Void in
+                if (success)
+                {
+                    println("SAVED like")
+                }
+                else
+                {
+                    println("LIKE not saved")
+                }
+        }
     }
 
 
@@ -84,7 +138,6 @@ class FeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-
         if segue.identifier == "toPhotoComments"
         {
             let buttonSender = sender as! UIButton

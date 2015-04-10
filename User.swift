@@ -17,10 +17,6 @@ class User : PFUser, PFSubclassing
 //        }
 //    }
 
-    
-    @NSManaged var firstName: String
-    @NSManaged var lastName: String
-
     @NSManaged var comments: Comment
     @NSManaged var photos: Photo
 

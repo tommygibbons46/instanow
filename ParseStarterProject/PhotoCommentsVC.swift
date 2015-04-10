@@ -1,6 +1,6 @@
 import UIKit
 
-class PhotoCommentsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
+class PhotoCommentsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate
 {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -17,6 +17,12 @@ class PhotoCommentsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewWillAppear(animated: Bool)
     {
         self.queryObjects()
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        return true
     }
 
     @IBAction func onCommentButtonTapped(sender: UIButton)
@@ -73,7 +79,6 @@ class PhotoCommentsVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             (returnedCommenter, error) -> Void in
             if (error == nil)
             {
-                println("found user")
                 let foundCommenter = returnedCommenter as! User
                 cell.commenterNameLabel.text = foundCommenter.username
             }

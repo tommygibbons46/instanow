@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B226D521AD7419F004398E9 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B226D511AD7419F004398E9 /* Like.swift */; };
 		6B38C2741AD62B2D0008CAD7 /* pess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B38C2731AD62B2D0008CAD7 /* pess.swift */; };
 		6B4EE0B61AD62F7E00C4F422 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4EE0B51AD62F7E00C4F422 /* Photo.swift */; };
 		6B678D1B1AD5F09300A75F3D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B678D1A1AD5F09300A75F3D /* User.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B226D511AD7419F004398E9 /* Like.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		6B38C2731AD62B2D0008CAD7 /* pess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pess.swift; sourceTree = "<group>"; };
 		6B4EE0B51AD62F7E00C4F422 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		6B678D1A1AD5F09300A75F3D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				6B678D1A1AD5F09300A75F3D /* User.swift */,
 				6B678D1F1AD5F6A000A75F3D /* Comment.swift */,
 				6B4EE0B51AD62F7E00C4F422 /* Photo.swift */,
+				6B226D511AD7419F004398E9 /* Like.swift */,
 			);
 			name = parseSubclasses;
 			path = ..;
@@ -264,6 +267,7 @@
 				TargetAttributes = {
 					81BA81441A49DA1800E65899 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = YV5E3UUJ4P;
 					};
 				};
 			};
@@ -329,6 +333,7 @@
 				9EABCF051AD447D60023596E /* LogInParse.swift in Sources */,
 				9E6FA68A1AD509980066DA70 /* OldLogInParse.swift in Sources */,
 				6B4EE0B61AD62F7E00C4F422 /* Photo.swift in Sources */,
+				6B226D521AD7419F004398E9 /* Like.swift in Sources */,
 				6B678D201AD5F6A000A75F3D /* Comment.swift in Sources */,
 				6B678D1B1AD5F09300A75F3D /* User.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
@@ -435,14 +440,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ParseStarterProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ParseStarterProject/ParseStarterProject-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -451,14 +461,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ParseStarterProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ParseStarterProject/ParseStarterProject-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

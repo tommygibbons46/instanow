@@ -17,10 +17,14 @@ class Photo : PFObject, PFSubclassing
         return "Photo"
     }
 
-    @NSManaged var photographer : User
-    @NSManaged var comments : Comment
-    @NSManaged var photographerName : String
     @NSManaged var actualImage : PFFile
+    @NSManaged var numberOfLikes : NSNumber
+
+    @NSManaged var photographer : User
+
+    @NSManaged var photographerName : String
+
+    @NSManaged var comments : Comment
 
 
 
